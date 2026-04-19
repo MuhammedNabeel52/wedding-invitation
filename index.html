@@ -17,7 +17,10 @@
 <body>
 
     <nav>
-        <ul>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-menu">
+            &#9776;
+        </button>
+        <ul id="primary-menu" class="nav-links">
             <li><a href="#hero">Home</a></li>
             <li><a href="#countdown">Countdown</a></li>
             <li><a href="#story">Story</a></li>
@@ -124,34 +127,34 @@
         <div class="gallery">
 
             <div class="gallery-item">
-                <img src="images/couple_1.jpeg" alt="Couple 1">
+                <img data-src="images/couple_1.jpeg" src="about:blank" alt="Couple 1" loading="lazy">
             </div>
 
             <div class="gallery-item">
-                <img src="images/couple_2.jpeg" alt="Couple 2">
+                <img data-src="images/couple_2.jpeg" src="about:blank" alt="Couple 2" loading="lazy">
             </div>
 
             <div class="gallery-item">
-                <img src="images/couple_3.jpeg" alt="Couple 3">
+                <img data-src="images/couple_3.jpeg" src="about:blank" alt="Couple 3" loading="lazy">
             </div>
 
             <div class="gallery-item">
-                <img src="images/couple_4.jpeg" alt="Couple 4">
+                <img data-src="images/couple_4.jpeg" src="about:blank" alt="Couple 4" loading="lazy">
             </div>
 
             <div class="gallery-item">
-                <img src="images/couple_5.jpeg" alt="Couple 5">
+                <img data-src="images/couple_5.jpeg" src="about:blank" alt="Couple 5" loading="lazy">
             </div>
 
             <div class="gallery-item">
-                <img src="images/couple_6.jpeg" alt="Couple 6">
+                <img data-src="images/couple_6.jpeg" src="about:blank" alt="Couple 6" loading="lazy">
             </div>
 
             <div class="gallery-item">
-                <img src="images/couple_7.jpeg" alt="Couple 7">
+                <img data-src="images/couple_7.jpeg" src="about:blank" alt="Couple 7" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="images/couple_8.jpeg" alt="Couple 8">
+                <img data-src="images/couple_8.jpeg" src="about:blank" alt="Couple 8" loading="lazy">
             </div>
         </div>
 
@@ -198,7 +201,8 @@
         <div class="map-container">
 
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.7872953127626!2d75.87411067452423!3d11.35024114834862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65d0048d62b87%3A0x137f7777b0010bae!2sMADAVOOR%20PALACE!5e0!3m2!1sen!2sin!4v1776577101374!5m2!1sen!2sin"
+                data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.7872953127626!2d75.87411067452423!3d11.35024114834862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65d0048d62b87%3A0x137f7777b0010bae!2sMADAVOOR%20PALACE!5e0!3m2!1sen!2sin!4v1776577101374!5m2!1sen!2sin"
+                src="about:blank"
                 width="100%" height="400" style="border:0;" loading="lazy">
             </iframe>
 

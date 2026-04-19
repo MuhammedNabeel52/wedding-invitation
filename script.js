@@ -49,18 +49,31 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown(); // Initial call
 
-// Scroll Animations
+// Scroll Animations + lazy loading
 const sections = document.querySelectorAll('.section');
+const nav = document.querySelector('nav');
+const menuToggle = document.querySelector('.menu-toggle');
 
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
 };
 
+function loadLazyMedia(root) {
+    const elements = (root || document).querySelectorAll('[data-src]');
+    elements.forEach(el => {
+        const src = el.getAttribute('data-src');
+        if (!src) return;
+        el.src = src;
+        el.removeAttribute('data-src');
+    });
+}
+
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            loadLazyMedia(entry.target);
         }
     });
 }, observerOptions);
@@ -70,20 +83,39 @@ sections.forEach(section => {
 });
 
 // Music Toggle
-const musicToggle = document.getElementById('music-toggle');
+const musicToggleBtn = document.getElementById('music-toggle');
 const bgMusic = document.getElementById('bg-music');
 let isPlaying = false;
 
-musicToggle.addEventListener('click', () => {
-    if (isPlaying) {
-        bgMusic.pause();
-        musicToggle.innerHTML = '🎵 Toggle Music';
-    } else {
-        bgMusic.play();
-        musicToggle.innerHTML = '🔇 Toggle Music';
-    }
-    isPlaying = !isPlaying;
-});
+if (musicToggleBtn && bgMusic) {
+    musicToggleBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            musicToggleBtn.innerHTML = '🎵 Toggle Music';
+        } else {
+            bgMusic.play();
+            musicToggleBtn.innerHTML = '🔇 Toggle Music';
+        }
+        isPlaying = !isPlaying;
+    });
+}
+
+// Mobile Menu Toggle
+if (menuToggle && nav) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.innerHTML = isOpen ? '✕' : '&#9776;';
+    });
+
+    document.addEventListener('click', (event) => {
+        if (nav.classList.contains('open') && !nav.contains(event.target)) {
+            nav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.innerHTML = '&#9776;';
+        }
+    });
+}
 
 // Smooth Scrolling for Navigation
 document.querySelectorAll('nav a').forEach(anchor => {
@@ -91,8 +123,18 @@ document.querySelectorAll('nav a').forEach(anchor => {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         const targetSection = document.querySelector(targetId);
-        targetSection.scrollIntoView({
-            behavior: 'smooth'
-        });
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        if (nav && nav.classList.contains('open')) {
+            nav.classList.remove('open');
+            if (menuToggle) {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.innerHTML = '&#9776;';
+            }
+        }
     });
 });
