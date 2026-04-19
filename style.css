@@ -764,6 +764,12 @@ h2::after {
         font-size: 1rem;
     }
 
+    .story-card {
+        padding: 20px 16px;
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
     .gallery {
         grid-template-columns: 1fr;
     }

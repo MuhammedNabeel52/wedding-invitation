@@ -119,7 +119,7 @@ function updateGallerySlider(index) {
 
 function startGalleryAutoPlay() {
     if (galleryInterval) clearInterval(galleryInterval);
-    galleryInterval = setInterval(() => updateGallerySlider(currentGalleryIndex + 1), 2500);
+    galleryInterval = setInterval(() => updateGallerySlider(currentGalleryIndex + 1), 1500);
 }
 
 if (prevControl) {
