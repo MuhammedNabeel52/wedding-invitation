@@ -16,20 +16,22 @@
 
 <body>
 
-    <nav>
-        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-menu">
-            &#9776;
-        </button>
-        <ul id="primary-menu" class="nav-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#countdown">Countdown</a></li>
-            <li><a href="#story">Story</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#details">Details</a></li>
-            <li><a href="#map">Location</a></li>
-            <li><a href="#rsvp">RSVP</a></li>
-        </ul>
-    </nav>
+    <div class="envelope-wrapper" id="intro-curtain">
+
+        <div class="envelope" id="open-curtain">
+
+            <div class="envelope-flap"></div>
+            <div class="envelope-body"></div>
+            <div class="envelope-seal"><span>❤</span></div>
+
+            <div class="envelope-letter">
+                <h2>Wedding Invitation</h2>
+                <p>Tap the envelope to open</p>
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- HERO -->
 
@@ -90,7 +92,7 @@
 
     </section>
 
- 
+
     <!-- STORY -->
 
     <section id="story" class="section">
@@ -125,36 +127,45 @@
         </p>
 
         <div class="gallery">
-
-            <div class="gallery-item">
-                <img data-src="images/couple_1.jpeg" src="about:blank" alt="Couple 1" loading="lazy">
+            <button class="slider-control prev" aria-label="Previous photo">‹</button>
+            <div class="slider-window">
+                <div class="slider-track">
+                    <div class="gallery-item">
+                        <img data-src="images/couple_1.jpeg" src="about:blank" alt="Couple 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img data-src="images/couple_2.jpeg" src="about:blank" alt="Couple 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img data-src="images/couple_3.jpeg" src="about:blank" alt="Couple 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img data-src="images/couple_4.jpeg" src="about:blank" alt="Couple 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img data-src="images/couple_5.jpeg" src="about:blank" alt="Couple 5" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img data-src="images/couple_6.jpeg" src="about:blank" alt="Couple 6" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img data-src="images/couple_7.jpeg" src="about:blank" alt="Couple 7" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img data-src="images/couple_8.jpeg" src="about:blank" alt="Couple 8" loading="lazy">
+                    </div>
+                </div>
             </div>
-
-            <div class="gallery-item">
-                <img data-src="images/couple_2.jpeg" src="about:blank" alt="Couple 2" loading="lazy">
-            </div>
-
-            <div class="gallery-item">
-                <img data-src="images/couple_3.jpeg" src="about:blank" alt="Couple 3" loading="lazy">
-            </div>
-
-            <div class="gallery-item">
-                <img data-src="images/couple_4.jpeg" src="about:blank" alt="Couple 4" loading="lazy">
-            </div>
-
-            <div class="gallery-item">
-                <img data-src="images/couple_5.jpeg" src="about:blank" alt="Couple 5" loading="lazy">
-            </div>
-
-            <div class="gallery-item">
-                <img data-src="images/couple_6.jpeg" src="about:blank" alt="Couple 6" loading="lazy">
-            </div>
-
-            <div class="gallery-item">
-                <img data-src="images/couple_7.jpeg" src="about:blank" alt="Couple 7" loading="lazy">
-            </div>
-            <div class="gallery-item">
-                <img data-src="images/couple_8.jpeg" src="about:blank" alt="Couple 8" loading="lazy">
+            <button class="slider-control next" aria-label="Next photo">›</button>
+            <div class="slider-dots">
+                <button class="slider-dot active" aria-label="Show slide 1"></button>
+                <button class="slider-dot" aria-label="Show slide 2"></button>
+                <button class="slider-dot" aria-label="Show slide 3"></button>
+                <button class="slider-dot" aria-label="Show slide 4"></button>
+                <button class="slider-dot" aria-label="Show slide 5"></button>
+                <button class="slider-dot" aria-label="Show slide 6"></button>
+                <button class="slider-dot" aria-label="Show slide 7"></button>
+                <button class="slider-dot" aria-label="Show slide 8"></button>
             </div>
         </div>
 
@@ -202,8 +213,7 @@
 
             <iframe
                 data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.7872953127626!2d75.87411067452423!3d11.35024114834862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65d0048d62b87%3A0x137f7777b0010bae!2sMADAVOOR%20PALACE!5e0!3m2!1sen!2sin!4v1776577101374!5m2!1sen!2sin"
-                src="about:blank"
-                width="100%" height="400" style="border:0;" loading="lazy">
+                src="about:blank" width="100%" height="400" style="border:0;" loading="lazy">
             </iframe>
 
         </div>

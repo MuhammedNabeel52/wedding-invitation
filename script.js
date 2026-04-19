@@ -19,6 +19,25 @@ function populateContent() {
 
 populateContent();
 
+const curtain = document.getElementById('intro-curtain');
+const curtainButton = document.getElementById('open-curtain');
+
+function openCurtain() {
+    const envelope = document.querySelector('.envelope');
+    if (envelope) {
+        envelope.classList.add('open');
+    }
+
+    document.body.classList.add('intro-entered');
+    if (curtain) {
+        setTimeout(() => curtain.remove(), 900);
+    }
+}
+
+if (curtainButton) {
+    curtainButton.addEventListener('click', openCurtain);
+}
+
 // Countdown Timer
 function updateCountdown() {
     const weddingDate = new Date('May 20, 2026 13:00:00').getTime();
@@ -52,7 +71,6 @@ updateCountdown(); // Initial call
 // Scroll Animations + lazy loading
 const sections = document.querySelectorAll('.section');
 const nav = document.querySelector('nav');
-const menuToggle = document.querySelector('.menu-toggle');
 
 const observerOptions = {
     threshold: 0.1,
@@ -82,6 +100,53 @@ sections.forEach(section => {
     observer.observe(section);
 });
 
+// Gallery Slider
+const sliderTrack = document.querySelector('.slider-track');
+const sliderItems = document.querySelectorAll('.gallery-item');
+const prevControl = document.querySelector('.slider-control.prev');
+const nextControl = document.querySelector('.slider-control.next');
+const sliderDots = document.querySelectorAll('.slider-dot');
+let currentGalleryIndex = 0;
+let galleryInterval;
+
+function updateGallerySlider(index) {
+    if (!sliderTrack || sliderItems.length === 0) return;
+    currentGalleryIndex = (index + sliderItems.length) % sliderItems.length;
+    sliderTrack.style.transform = `translateX(-${currentGalleryIndex * 100}%)`;
+    sliderItems.forEach((item, i) => item.classList.toggle('active', i === currentGalleryIndex));
+    sliderDots.forEach((dot, i) => dot.classList.toggle('active', i === currentGalleryIndex));
+}
+
+function startGalleryAutoPlay() {
+    if (galleryInterval) clearInterval(galleryInterval);
+    galleryInterval = setInterval(() => updateGallerySlider(currentGalleryIndex + 1), 6500);
+}
+
+if (prevControl) {
+    prevControl.addEventListener('click', () => {
+        updateGallerySlider(currentGalleryIndex - 1);
+        startGalleryAutoPlay();
+    });
+}
+
+if (nextControl) {
+    nextControl.addEventListener('click', () => {
+        updateGallerySlider(currentGalleryIndex + 1);
+        startGalleryAutoPlay();
+    });
+}
+
+sliderDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        updateGallerySlider(index);
+        startGalleryAutoPlay();
+    });
+});
+
+window.addEventListener('resize', () => updateGallerySlider(currentGalleryIndex));
+updateGallerySlider(0);
+startGalleryAutoPlay();
+
 // Music Toggle
 const musicToggleBtn = document.getElementById('music-toggle');
 const bgMusic = document.getElementById('bg-music');
@@ -100,23 +165,6 @@ if (musicToggleBtn && bgMusic) {
     });
 }
 
-// Mobile Menu Toggle
-if (menuToggle && nav) {
-    menuToggle.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('open');
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-        menuToggle.innerHTML = isOpen ? '✕' : '&#9776;';
-    });
-
-    document.addEventListener('click', (event) => {
-        if (nav.classList.contains('open') && !nav.contains(event.target)) {
-            nav.classList.remove('open');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            menuToggle.innerHTML = '&#9776;';
-        }
-    });
-}
-
 // Smooth Scrolling for Navigation
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -131,10 +179,7 @@ document.querySelectorAll('nav a').forEach(anchor => {
 
         if (nav && nav.classList.contains('open')) {
             nav.classList.remove('open');
-            if (menuToggle) {
-                menuToggle.setAttribute('aria-expanded', 'false');
-                menuToggle.innerHTML = '&#9776;';
-            }
         }
     });
 });
+

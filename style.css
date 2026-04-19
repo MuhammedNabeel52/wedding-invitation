@@ -13,6 +13,91 @@ body {
     min-height: 100vh;
 }
 
+.curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #050505;
+    overflow: hidden;
+    transition: opacity 0.35s ease 0.4s;
+}
+
+.curtain-panel {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 40%), #090909;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.curtain-panel.left {
+    left: 0;
+    transform: translateX(0);
+}
+
+.curtain-panel.right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.curtain-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #ffffff;
+    padding: 0 24px;
+}
+
+.curtain-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.curtain-subtitle {
+    margin-bottom: 24px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.curtain-button {
+    padding: 16px 28px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.25s ease;
+}
+
+.curtain-button:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+}
+
+body.intro-entered .curtain-panel.left {
+    transform: translateX(-100%);
+}
+
+body.intro-entered .curtain-panel.right {
+    transform: translateX(100%);
+}
+
+body.intro-entered .curtain-center {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.intro-entered .curtain {
+    opacity: 0;
+    pointer-events: none;
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -26,18 +111,7 @@ nav {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-}
-
-nav .menu-toggle {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #f5f5f5;
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 14px 10px;
-    line-height: 1;
+    justify-content: center;
 }
 
 nav ul {
@@ -371,46 +445,148 @@ h2::after {
     max-width: 720px;
 }
 
-/* Grid layout */
-
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    position: relative;
     max-width: 1100px;
+    width: 100%;
     margin: auto;
 }
 
-/* Image card */
-
-.gallery-item {
+.slider-window {
     overflow: hidden;
-    border-radius: 22px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    background: rgba(255, 255, 255, 0.05);
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
 }
 
-/* Image */
+.slider-track {
+    display: flex;
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.gallery-item {
+    min-width: 100%;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    border-radius: 28px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+}
 
 .gallery-item img {
     width: 100%;
-    height: 260px;
+    height: 520px;
+    min-height: 380px;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.7s ease, filter 0.7s ease;
+    filter: grayscale(30%) contrast(1.05);
 }
 
-/* Hover animation */
+.slider-window {
+    min-height: 380px;
+}
+
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
 
 .gallery-item:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    filter: grayscale(0%) contrast(1.1);
 }
 
-.gallery-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+.gallery-item:hover::before {
+    opacity: 1;
+}
+
+.slider-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, background 0.25s ease;
+    z-index: 2;
+}
+
+.slider-control:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.slider-control.prev {
+    left: 14px;
+}
+
+.slider-control.next {
+    right: 14px;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease, opacity 0.25s ease;
+    opacity: 0.65;
+}
+
+.slider-dot.active {
+    background: #ffffff;
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .slider-control {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    .gallery-item img {
+        height: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-item img {
+        height: 240px;
+    }
+
+    .slider-control.prev {
+        left: 8px;
+    }
+
+    .slider-control.next {
+        right: 8px;
+    }
 }
 
 /* Animations */
@@ -470,27 +646,13 @@ h2::after {
         padding: 0 16px;
     }
 
-    nav .menu-toggle {
-        display: block;
-    }
-
     nav ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.35s ease;
-        background: rgba(0, 0, 0, 0.95);
-        padding: 0;
-    }
-
-    nav.open ul {
-        max-height: 640px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     nav li {
-        margin: 12px 0;
+        margin: 10px 12px;
     }
 
     nav a {
@@ -582,13 +744,24 @@ h2::after {
     }
 
     .timer {
-        flex-direction: column;
-        gap: 10px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        justify-content: center;
+        gap: 14px;
     }
 
     .time-unit {
         width: 100%;
-        max-width: 200px;
+        max-width: 240px;
+        padding: 18px 16px;
+    }
+
+    .time-unit span {
+        font-size: 1.9rem;
+    }
+
+    .time-unit p {
+        font-size: 1rem;
     }
 
     .gallery {
@@ -598,4 +771,107 @@ h2::after {
     .event {
         padding: 16px;
     }
+}
+
+/* Envelope Intro */
+
+.envelope-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.envelope:hover {
+    transform: scale(1.02);
+}
+
+/* Envelope Body */
+
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 160px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+}
+
+/* Envelope Flap */
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-bottom: 100px solid #f0f0f0;
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Seal */
+
+.envelope-seal {
+    display: none; /* Hide the seal for a standard look */
+}
+
+/* Letter */
+
+.envelope-letter {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.6s ease;
+}
+
+.envelope-letter h2 {
+    font-family: 'Great Vibes', cursive;
+    margin: 0;
+    color: #333333;
+    font-size: 1.8rem;
+}
+
+.envelope-letter p {
+    margin: 8px 0 0;
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+/* Open animation */
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .envelope-letter {
+    transform: translate(-50%, -120px);
 }
