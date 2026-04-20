@@ -130,19 +130,19 @@
             <button class="slider-control prev" aria-label="Previous photo">‹</button>
             <div class="slider-window">
                 <div class="slider-track">
-                    <div class="gallery-item">
+                    <!-- <div class="gallery-item">
                         <img data-src="images/couple_1.jpeg" src="about:blank" alt="Couple 1" loading="lazy">
                     </div>
                     <div class="gallery-item">
                         <img data-src="images/couple_5.jpeg" src="about:blank" alt="Couple 5" loading="lazy">
-                    </div>
+                    </div> -->
                     <div class="gallery-item">
                         <img data-src="images/couple_2.jpeg" src="about:blank" alt="Couple 2" loading="lazy">
                     </div>
                     <div class="gallery-item">
                         <img data-src="images/couple_6.jpeg" src="about:blank" alt="Couple 6" loading="lazy">
                     </div>
-                    <div class="gallery-item">
+                    <!-- <div class="gallery-item">
                         <img data-src="images/couple_7.jpeg" src="about:blank" alt="Couple 7" loading="lazy">
                     </div>
                     <div class="gallery-item">
@@ -155,19 +155,19 @@
 
                     <div class="gallery-item">
                         <img data-src="images/couple_8.jpeg" src="about:blank" alt="Couple 8" loading="lazy">
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <button class="slider-control next" aria-label="Next photo">›</button>
             <div class="slider-dots">
                 <button class="slider-dot active" aria-label="Show slide 1"></button>
                 <button class="slider-dot" aria-label="Show slide 2"></button>
-                <button class="slider-dot" aria-label="Show slide 3"></button>
+                <!-- <button class="slider-dot" aria-label="Show slide 3"></button>
                 <button class="slider-dot" aria-label="Show slide 4"></button>
                 <button class="slider-dot" aria-label="Show slide 5"></button>
                 <button class="slider-dot" aria-label="Show slide 6"></button>
                 <button class="slider-dot" aria-label="Show slide 7"></button>
-                <button class="slider-dot" aria-label="Show slide 8"></button>
+                <button class="slider-dot" aria-label="Show slide 8"></button> -->
             </div>
         </div>
 
@@ -205,6 +205,26 @@
 
     </section>
 
+    <!-- RSVP -->
+
+    <section id="rsvp" class="section">
+
+        <h2>Confirm Your Presence</h2>
+
+        <p>
+            Kindly let us know if you will be able to join us in celebrating our special day.
+        </p>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdaX8NeDQDyGR5Dn2svTPurOLSxsQkDddtm-QYi2j6uDmnPhA/viewform"
+            target="_blank" class="rsvp-button">
+
+            Fill RSVP Form
+
+        </a>
+
+    </section>
+
+
     <!-- MAP -->
 
     <section id="map" class="section">
@@ -226,26 +246,21 @@
 
     </section>
 
-    <!-- RSVP -->
+    <!-- MUSIC TOGGLE BUTTON -->
+    <button id="music-toggle" class="music-toggle-btn" aria-label="Toggle background music">
+        ♪
+    </button>
 
-    <section id="rsvp" class="section">
-
-        <h2>Confirm Your Presence</h2>
-
-        <p>
-            Kindly let us know if you will be able to join us in celebrating our special day.
-        </p>
-
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdaX8NeDQDyGR5Dn2svTPurOLSxsQkDddtm-QYi2j6uDmnPhA/viewform"
-            target="_blank" class="rsvp-button">
-
-            Fill RSVP Form
-
-        </a>
-
-    </section>
+    <!-- BACKGROUND MUSIC -->
+    <audio id="bg-music" loop preload="none">
+        <source src="music/wedding-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script src="script.js"></script>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 </body>
 

@@ -21,11 +21,64 @@ populateContent();
 
 const curtain = document.getElementById('intro-curtain');
 const curtainButton = document.getElementById('open-curtain');
+let isPlaying = false;
 
 function openCurtain() {
     const envelope = document.querySelector('.envelope');
     if (envelope) {
         envelope.classList.add('open');
+    }
+
+    // Trigger confetti animation with wedding theme
+    if (typeof confetti !== 'undefined') {
+        // First burst
+        confetti({
+            particleCount: 150,
+            spread: 60,
+            origin: { y: 0.7 },
+            colors: ['#ff69b4', '#ffb6c1', '#ffffff', '#ffd700', '#ff1493'],
+            shapes: ['circle', 'square'],
+            scalar: 0.8
+        });
+
+        // Second burst with hearts
+        setTimeout(() => {
+            confetti({
+                particleCount: 100,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#ff69b4', '#ffb6c1', '#ffffff', '#ffd700'],
+                shapes: ['circle'],
+                scalar: 1.2,
+                gravity: 0.6,
+                emoji: '❤️'
+            });
+        }, 500);
+
+        // Third burst
+        setTimeout(() => {
+            confetti({
+                particleCount: 80,
+                spread: 100,
+                origin: { y: 0.5 },
+                colors: ['#ff1493', '#ffffff', '#ffd700'],
+                shapes: ['circle', 'square'],
+                scalar: 0.9,
+                gravity: 0.8
+            });
+        }, 1000);
+    }
+
+    // Autoplay music when envelope opens
+    const bgMusic = document.getElementById('bg-music');
+    const musicToggleBtn = document.getElementById('music-toggle');
+    if (bgMusic) {
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            if (musicToggleBtn) musicToggleBtn.innerHTML = '🔇';
+        }).catch(() => {
+            // Handle autoplay failure
+        });
     }
 
     document.body.classList.add('intro-entered');
@@ -119,7 +172,7 @@ function updateGallerySlider(index) {
 
 function startGalleryAutoPlay() {
     if (galleryInterval) clearInterval(galleryInterval);
-    galleryInterval = setInterval(() => updateGallerySlider(currentGalleryIndex + 1), 1500);
+    galleryInterval = setInterval(() => updateGallerySlider(currentGalleryIndex + 1), 2500);
 }
 
 if (prevControl) {
@@ -150,16 +203,15 @@ startGalleryAutoPlay();
 // Music Toggle
 const musicToggleBtn = document.getElementById('music-toggle');
 const bgMusic = document.getElementById('bg-music');
-let isPlaying = false;
 
 if (musicToggleBtn && bgMusic) {
     musicToggleBtn.addEventListener('click', () => {
         if (isPlaying) {
             bgMusic.pause();
-            musicToggleBtn.innerHTML = '🎵 Toggle Music';
+            musicToggleBtn.innerHTML = '♪';
         } else {
             bgMusic.play();
-            musicToggleBtn.innerHTML = '🔇 Toggle Music';
+            musicToggleBtn.innerHTML = '🔇';
         }
         isPlaying = !isPlaying;
     });
