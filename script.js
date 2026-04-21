@@ -235,3 +235,35 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
 });
 
+// Event Card Click Animation
+document.querySelectorAll('.event').forEach(event => {
+    event.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // Remove active class from other events
+        document.querySelectorAll('.event').forEach(el => {
+            if (el !== this) {
+                el.classList.remove('active');
+            }
+        });
+        // Toggle active class on clicked event
+        this.classList.toggle('active');
+    });
+
+    // Also handle keyboard activation
+    event.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+        }
+    });
+});
+
+// Close event cards when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.event')) {
+        document.querySelectorAll('.event.active').forEach(el => {
+            el.classList.remove('active');
+        });
+    }
+});
+

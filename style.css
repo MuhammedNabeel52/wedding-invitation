@@ -360,6 +360,30 @@ h2::after {
     gap: 18px;
     flex-wrap: wrap;
     justify-content: center;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateY(-50%);
+    animation: timelineGrow 1.2s ease-out forwards;
+}
+
+@keyframes timelineGrow {
+    from {
+        width: 0;
+        left: 50%;
+    }
+    to {
+        width: 80%;
+        left: 10%;
+    }
 }
 
 .event {
@@ -372,17 +396,100 @@ h2::after {
     border: 1px solid rgba(255, 255, 255, 0.08);
     width: 260px;
     color: #f2f2f2;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    cursor: pointer;
+}
+
+.event-slide {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+.event-slide:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.event-slide:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.event.active {
+    animation: popAndFlip 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes popAndFlip {
+    0% {
+        transform: scale(1) rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1) rotateY(180deg);
+    }
+    100% {
+        transform: scale(1.15) rotateY(360deg);
+        opacity: 1;
+    }
+}
+
+.event::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+    }
 }
 
 .event h3 {
     color: #ffffff;
     margin-bottom: 10px;
+    animation: fadeIn 0.6s ease-out 0.5s forwards;
+    opacity: 0;
 }
 
 .event p {
     margin: 8px 0;
     color: #d5d5d5;
     letter-spacing: 0.02em;
+    animation: fadeIn 0.6s ease-out 0.6s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* MAP */
